@@ -1,0 +1,79 @@
+<template>
+    <section class="slds-grid slds-wrap slds-gutters grid-gap">
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Coverable Content: Small checkboxes">
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <c-lwc-visual-picker legend="Add the following object(s)" size="small" multiple-selection
+                        options={sampleCoverableContentCheckbox}></c-lwc-visual-picker>
+                </div>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Coverable Content: Small">
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <c-lwc-visual-picker legend="Select an app" size="small" options={sampleCoverableContentRadio}>
+                    </c-lwc-visual-picker>
+                </div>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Non Coverable Content">
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <c-lwc-visual-picker legend="Select a plan" type="non-coverable"
+                        options={sampleNonCoverableContent}>
+                    </c-lwc-visual-picker>
+                </div>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Vertical">
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <c-lwc-visual-picker legend="Select an option" type="vertical" debug options={sampleVertical}>
+                    </c-lwc-visual-picker>
+                </div>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Vertical: with icons">
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small slds-scrollable_x">
+                    <c-lwc-visual-picker legend="Select an option" type="vertical" options={sampleVerticalIcons}>
+                    </c-lwc-visual-picker>
+                </div>
+            </lightning-card>
+        </div>
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Link">
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <c-lwc-visual-picker debug type="link" options={sampleLink}>
+                    </c-lwc-visual-picker>
+                </div>
+            </lightning-card>
+        </div>
+
+
+        <div class="slds-col slds-size_1-of-1 slds-medium-size_4-of-12">
+            <lightning-card title="Test selection and events">
+                <div slot="actions">
+                    <lightning-button variant="bare" label="Validate" title="Validate"
+                        onclick={handleClickButtonValidate}></lightning-button>
+                </div>
+
+                <div class="slds-var-p-horizontal_medium slds-var-p-vertical_small">
+                    <div class="slds-var-m-bottom_medium">
+                        <p><span class="slds-text-body_small">Selected value:</span> {selectedValue}</p>
+                    </div>
+
+                    <c-lwc-visual-picker data-selector="lwc-visual-picker-validation" multiple-selection
+                        legend="Select an option" guid="selection-and-events-sample" required debug type="vertical"
+                        options={sampleEvents} onvaluechanged={handleValueChanged}>
+                    </c-lwc-visual-picker>
+                </div>
+            </lightning-card>
+        </div>
+    </section>
+</template>

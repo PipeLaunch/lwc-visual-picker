@@ -1,0 +1,84 @@
+<template>
+    <fieldset if:true={computeHasOptions} class="slds-form-element">
+        <template if:true={legend}>
+            <label class="slds-assistive-text">{legend}</label>
+            <legend class="slds-form-element__legend slds-form-element__label">
+                <abbr if:true={required} class="slds-required" title="required">* </abbr>{legend}
+            </legend>
+        </template>
+
+        <div class="slds-form-element__control">
+            <template for:each={processedOptions} for:item="option">
+                <div class={computeClasses} key={option.value}>
+                    <input type={computeInputType} id={option._id} value={option.value} name={guid}
+                        checked={option.selected} onclick={handleClickInput} required={required} disabled={option.disabled} />
+                        
+                    <label for={option._id}>
+                        <span class={option._cardClasses}>
+
+                            <template if:false={option._hasVerticalIcons}>
+                                <span class="slds-is-selected">
+                                    <span if:true={isCoverableType} class="slds-icon_container">
+                                        <lightning-icon variant="inverse" size="large" icon-name="utility:check"
+                                            alternative-text="Check"></lightning-icon>
+                                    </span>
+
+                                    <span if:false={isCoverableType} class="slds-icon_container">
+                                        <span if:false={isVerticalType}
+                                            class="slds-text-heading_large">{option.cardHeader}</span>
+                                        <span if:true={isVerticalType}
+                                            class="slds-text-heading_medium slds-var-m-bottom_x-small">{option.cardHeader}</span>
+                                        <span class="slds-text-title">{option.cardTitle}</span>
+                                    </span>
+                                </span>
+
+                                <span class="slds-is-not-selected">
+                                    <span if:true={isCoverableType} class="slds-icon_container">
+                                        <lightning-icon icon-name={option.icon} size="large"></lightning-icon>
+                                    </span>
+
+                                    <span if:false={isCoverableType} class="slds-icon_container">
+                                        <span if:false={isVerticalType}
+                                            class="slds-text-heading_large">{option.cardHeader}</span>
+                                        <span if:true={isVerticalType}
+                                            class="slds-text-heading_medium slds-var-m-bottom_x-small">{option.cardHeader}</span>
+                                        <span class="slds-text-title">{option.cardTitle}</span>
+                                    </span>
+                                </span>
+                            </template>
+
+                            <template if:true={option._hasVerticalIcons}>
+                                <span
+                                    class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center slds-var-m-left_xx-small">
+                                    <lightning-icon icon-name={option.icon} size="medium"></lightning-icon>
+                                </span>
+                                <span class="slds-media__body slds-border_left slds-var-p-left_small slds-var-p-top_xxx-small">
+                                    <span
+                                        class="slds-text-heading_medium slds-var-m-bottom_x-small">{option.cardHeader}</span>
+                                    <span class="slds-text-title">{option.cardTitle}</span>
+                                </span>
+                            </template>
+
+
+                        </span>
+
+                        <span if:false={isVerticalType} class="slds-visual-picker__body">
+                            <span if:true={isCoverableType} class="slds-text-title">{option.label}</span>
+
+                            <template if:false={isCoverableType}>
+                                <span class="slds-text-heading_small">{option.label}</span>
+                                <span class="slds-text-title">{option.description}</span>
+                            </template>
+                        </span>
+
+                        <span if:false={isCoverableType} class="slds-icon_container slds-visual-picker__text-check">
+                            <lightning-icon variant="inverse" size="x-small" icon-name="utility:check"
+                                alternative-text="Check"></lightning-icon>
+                        </span>
+                    </label>
+                </div>
+            </template>
+
+        </div>
+    </fieldset>
+</template>

@@ -1,0 +1,35 @@
+<template>
+    <div if:true={computeHasOptions} class="slds-form-element__control">
+        <template for:each={processedOptions} for:item="option">
+            <a key={option.value} href={option.link} target="_blank"
+                class="slds-box slds-box_link slds-box_x-small slds-media slds-var-m-bottom_x-small">
+
+                <template if:true={option._hasVerticalIcons}>
+                    <div
+                        class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center slds-var-m-left_xx-small">
+                        <span class="slds-icon_container">
+                            <lightning-icon icon-name={option.icon} size="medium"></lightning-icon>
+                        </span>
+                    </div>
+                    <div class="slds-media__body slds-border_left slds-var-p-around_small">
+                        <h2 class="slds-truncate slds-text-heading_small" title={option.label}>
+                            {option.label}
+                        </h2>
+                        <p class="slds-var-m-top_small">{option.description}</p>
+                    </div>
+                </template>
+
+
+                <template if:false={option._hasVerticalIcons}>
+                    <div class="slds-media__body slds-var-p-around_small">
+                        <h2 class="slds-truncate slds-text-heading_small" title={option.label}>
+                            {option.label}
+                        </h2>
+                        <p class="slds-var-m-top_small">{option.description}</p>
+                    </div>
+                </template>
+
+            </a>
+        </template>
+    </div>
+</template>

@@ -1,0 +1,2 @@
+[ ] code optimization
+[ ] better readme

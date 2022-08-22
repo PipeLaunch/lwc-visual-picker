@@ -1,0 +1,10 @@
+.custom-vertical-figure {
+    /* min-height: 6rem; */
+    height: auto;
+    width: inherit;
+}
+
+.custom-visual-picker_vertical {
+    width: 100%;
+    /* width: fit-content; */
+}
