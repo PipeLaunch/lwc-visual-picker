@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * @description Normalize Boolean
  * @param {*} value value
@@ -25,20 +27,20 @@ export function validateString(value = "") {
 
 /**
  * @description validates size
- * @param {String} value
- * @returns {String|null}
+ * @param {String} input
+ * @returns {String}
  */
 export function validateSize(input) {
   const VALID_TYPES = ["small", "medium", "large"];
   if (!input || typeof input !== "string" || !VALID_TYPES.includes(input)) {
-    return null;
+    return VALID_TYPES[0];
   }
   return input;
 }
 
 /**
  * @description validates type
- * @param {String} value
+ * @param {String} input
  * @returns {String}
  */
 export function validateType(input) {
@@ -145,12 +147,14 @@ function checkIfAllItemsAreDisabled(input) {
 
 /**
  * @description only returns fallback if is coverable type
- * @param {Object[]} input
+ * @param {Object[]|any} input
  * @param {String} type
  * @returns {String}
  */
 function computeIcon(input, type = "coverable") {
-  if (type === "coverable") return input.icon ?? "standard:unmatched";
+  if (type === "coverable") {
+    return input.icon ?? "standard:unmatched";
+  }
   return input.icon;
 }
 

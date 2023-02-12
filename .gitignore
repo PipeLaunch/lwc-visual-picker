@@ -49,3 +49,4 @@ password.env
 PERSONAL.md
 
 .sf/**
+pnpm-lock.yaml

@@ -11,12 +11,13 @@
 #-  version     date        author                  change log
 #-  1.0         2022-01-01  samuel@pipelaunch.com   Initial version
 #-  1.0         2022-08-11  samuel@pipelaunch.com   Apex output parsing
+#-  1.1         2023-02-10  samuel@pipelaunch.com   New sf style commands
 #================================================================
 
 #===================== CONFIG VARIABLES ======================
 DEVHUB_ALIAS="pipelaunch" # DevHub alias name
 ORG_ALIAS="lwc-visual-picker-scratch" # name of the scratch org to create
-INSTALL_SCRIPT_PATH="install-scripts/enable-debug.apex" # path to the install script to run after creating the scratch org (eg. enable debug mode)
+INSTALL_SCRIPT_PATH="install-scripts/aftercreate.apex" # path to the install script to run after creating the scratch org (eg. enable debug mode)
 ORG_DURATION_DAYS=30 # 1 to 30 days
 #PACKAGE_ID="04t"
 #============== ./ END CONFIG VARIABLES ======================
@@ -37,7 +38,7 @@ read -e -i "$ORG_ALIAS" -p "Scratch org alias: " aliasinput # requires bash 4.0 
 ORG_ALIAS=${aliasinput:-$ORG_ALIAS}
 
 echo "Cleaning previously created scratch org..."
-sfdx force:org:delete \
+sfdx force org delete \
     -p \
     -u $ORG_ALIAS &> /dev/null
 echo ""
@@ -46,12 +47,13 @@ read -e -i "$ORG_DURATION_DAYS" -p "Scratch org duration (days): " orgdurationin
 ORG_DURATION_DAYS=${orgdurationinput:-$ORG_DURATION_DAYS}
 
 echo "Creating scratch org..."
-sfdx force:org:create \
-    -s \
-    -f config/project-scratch-def.json \
-    --durationdays $ORG_DURATION_DAYS \
-    --wait 15 \
-    -a $ORG_ALIAS
+sfdx org create scratch \
+	--definition-file config/project-scratch-def.json \
+	--alias $ORG_ALIAS \
+	--target-dev-hub $DEVHUB_ALIAS \
+    --set-default \
+    --duration-days $ORG_DURATION_DAYS \
+    --wait 15 
 echo ""
 
 read -e -i "Y" -p "Do you want to enable the Debug Mode? Debug mode can slow down your salesforce org [Y/n] " response
@@ -78,17 +80,28 @@ fi
 
 echo "Generating the scratch org password... View the password.env file"
 rm -rf password.env
-sfdx force:user:password:generate >> password.env
+sfdx force user password generate \
+	>> password.env
 cat password.env
 
 echo "Opening scratch org..."
-sfdx force:org:open
+sfdx force org open \
+	-u $ORG_ALIAS
 echo ""
 
 echo "Pushing source..."
-sfdx force:source:push \
-	-u $ORG_ALIAS
+sfdx force source push \
+	-u $ORG_ALIAS 
 echo ""
+
+# Permission sets assignment
+# echo "Assigning Permission sets..."
+# sfdx force:user:permset:assign --permsetname PipeLaunchCreditCheck_OrderReports
+
+# Package installation
+# read -e -i "$PACKAGE_ID" -p "Instal package ID (04t...): " packageinput # requires bash 4.0 or later
+# PACKAGE_ID=${packageinput:-$PACKAGE_ID}
+# sfdx force:package:install --package $PACKAGE_ID -w 30 -u $ORG_ALIAS
 
 # end message
 END_TIME=`date +%s`

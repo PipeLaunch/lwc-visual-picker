@@ -2,10 +2,11 @@
  * @description       : LWC Visual Picker Component
  * @group             : Generic Components
  * @author            : samuel@pipelaunch.com
- * @last modified on  : 22-08-2022
+ * @last modified on  : 2023-02-12
  * @last modified by  : samuel@pipelaunch.com
- * @version           : 1.0 beta
+ * @version           : 1.1
  * @changelog         : 21-07-2022 - Change the getting variables
+ *                      2023-02-12 - fix validation, add better jsdoc documentation, new checkvalidity method
  **/
 import { LightningElement, api, track } from "lwc";
 
@@ -16,15 +17,20 @@ import * as utils from "./lwcVisualPickerUtils";
 import * as config from "./lwcVisualPickerConfig";
 
 export default class LwcVisualPicker extends LightningElement {
-  @api debug = false; // enable internal debug messages on console
+  /**
+   * @property {boolean} debug - true to show debug messages in the console
+   * @default false
+   */
+  @api debug = false;
 
   /**
-   * @description text to be used as fieldset legend (at top)
+   * @property {boolean} legend - text to be used as fieldset legend (at top)
+   * @default false
    */
   @api legend = false;
 
   /**
-   * @description use a guid to unique identify the radio group "name". With this
+   * @property {string} guid - use a guid to unique identify the radio group "name". With this
    * option you can have multiple radio groups on the same page and they will
    * be controlled by the same name.
    * If none value is provided, a random guid will be generated
@@ -39,7 +45,7 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @description global disable all inputs
+   * @property {boolean} disabled - global disable all inputs
    * @default false
    */
   @api get disabled() {
@@ -52,7 +58,7 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @description make the input required
+   * @property {boolean} required - make the input required
    * @default false
    */
   @api get required() {
@@ -64,7 +70,7 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @description Propagate events up with bubble and composed to use when the component
+   * @property {boolean} propagateEvents - Propagate events up with bubble and composed to use when the component
    * is nested
    * @default false
    */
@@ -77,7 +83,8 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @description icons size. Valid values are: "small", "medium", "large"
+   * @property {string} size - icons size
+   * @validValues small, medium, large
    * @default small
    */
   @api
@@ -90,7 +97,7 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @description true to enable multiple Selection (checkbox mode instead of radio)
+   * @property {boolean} multipleSelection - true to enable multiple Selection (checkbox mode instead of radio)
    * @default false
    */
   @api
@@ -103,7 +110,8 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @description type of the component. Valid types are: "coverable", "non-coverable", "link", "vertical"
+   * @property {string} type - type of the component.
+   * @validValues coverable, non-coverable, link, vertical
    * @default coverable
    */
   @api
@@ -117,7 +125,7 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @description pass the options (entries for each input)
+   * @property {object} options - pass the options (entries for each input)
    */
   @api get options() {
     return this._options;
@@ -132,28 +140,28 @@ export default class LwcVisualPicker extends LightningElement {
   _value = null; // selected value
 
   /**
-   * @type {Boolean} - true if is coverable type
+   * @type {boolean} - true if is coverable type
    */
   get isCoverableType() {
     return this.type === "coverable";
   }
 
   /**
-   * @type {Boolean} - true if is vertical type
+   * @type {boolean} - true if is vertical type
    */
   get isVerticalType() {
     return this.type === "vertical";
   }
 
   /**
-   * @type {String} - input checkbox type
+   * @type {string} - input checkbox type
    */
   get computeInputType() {
     return this.multipleSelection ? "checkbox" : "radio";
   }
 
   /**
-   * @type {String} - Classes for the parent element after slds-form-element__control (container of the inputs)
+   * @type {string} - Classes for the parent element after slds-form-element__control (container of the inputs)
    */
   get computeClasses() {
     if (this._type === "vertical")
@@ -162,7 +170,7 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
-   * @type {Boolean} - only show when there are options
+   * @type {boolean} - only show when there are options
    */
   get computeHasOptions() {
     return this._options && this._options.length > 0;
@@ -174,14 +182,29 @@ export default class LwcVisualPicker extends LightningElement {
 
   /**
    * @description Validate User Input for Custom Flow Screen Components
-   * @returns {Object} - true if is va
+   * @returns {Object} -
    */
   @api validate() {
-    if (this._required && !this.value) {
-      return config.INVALID_PAYLOAD;
+    if (!this.required) {
+      return { isValid: true }; // no validation needed
     }
 
-    return { isValid: true };
+    const isValid = this._multipleSelection
+      ? this._value && this._value.length > 0
+      : !!this._value;
+
+    return isValid ? { isValid: true } : config.INVALID_PAYLOAD;
+  }
+
+  /**
+   * @description Report validity
+   * @returns {boolean} - true if the input is valid
+   */
+  @api
+  reportValidity() {
+    const validationResults = this.validate();
+
+    return validationResults?.isValid ?? false;
   }
 
   @api get value() {
@@ -240,6 +263,8 @@ export default class LwcVisualPicker extends LightningElement {
       this.processedOptions,
       this._multipleSelection
     );
-    if (this.debug) console.log("Processed options", this._options);
+    if (this.debug) {
+      console.log("Processed options", this._options);
+    }
   }
 }

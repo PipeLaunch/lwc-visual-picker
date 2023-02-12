@@ -1,3 +1,13 @@
+/**
+ * @description       : 
+ * @author            : samuel@pipelaunch.com
+ * @group             : 
+ * @last modified on  : 2023-02-12
+ * @last modified by  : samuel@pipelaunch.com
+ * Modifications Log
+ * Ver   Date         Author                  Modification
+ * 1.0   2023-02-12   samuel@pipelaunch.com   Initial Version
+**/
 import { LightningElement } from "lwc";
 
 // import LightningAlert from "lightning/alert"; // disabled to support local dev
@@ -134,7 +144,7 @@ export default class Samples extends LightningElement {
     const elm = this.template.querySelector(
       "c-lwc-visual-picker[data-selector='lwc-visual-picker-validation']"
     );
-    const validation = elm.validate();
+    const validation = elm.validate(); // or use elm.reportValidity() but you will not see the error message
 
     if (validation.isValid) {
       this.dispatchEvent(
