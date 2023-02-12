@@ -15,7 +15,6 @@ describe("getPreselectedValue", () => {
   });
 });
 
-
 describe("processOptions", () => {
   const input = [
     { value: 1, selected: true, disabled: true },
@@ -25,5 +24,4 @@ describe("processOptions", () => {
   test("all disabled", () => {
     expect(utils.processOptions(input)[0].selected).toBeFalsy();
   });
-
 });

@@ -1,13 +1,13 @@
 /**
- * @description       : 
+ * @description       :
  * @author            : samuel@pipelaunch.com
- * @group             : 
+ * @group             :
  * @last modified on  : 2023-02-12
  * @last modified by  : samuel@pipelaunch.com
  * Modifications Log
  * Ver   Date         Author                  Modification
  * 1.0   2023-02-12   samuel@pipelaunch.com   Initial Version
-**/
+ **/
 import { LightningElement } from "lwc";
 
 // import LightningAlert from "lightning/alert"; // disabled to support local dev
@@ -20,46 +20,46 @@ export default class Samples extends LightningElement {
       description: "Complete service CRM for teams of any size",
       selected: true,
       cardHeader: "$30",
-      cardTitle: "USD/user/month *",
+      cardTitle: "USD/user/month *"
     },
     {
       label: "Lightning Enterprise",
       description: "Everything you need to take support to the next level",
       cardHeader: "$150",
-      cardTitle: "USD/user/month *",
+      cardTitle: "USD/user/month *"
     },
     {
       label: "Lightning Unlimited",
       description: "Complete support with enterprise-grade customization",
       cardHeader: "$300",
-      cardTitle: "USD/user/month *",
-    },
+      cardTitle: "USD/user/month *"
+    }
   ];
 
   sampleCoverableContentRadio = [
     {
       label: "Connected App",
-      icon: "utility:connected_apps",
+      icon: "utility:connected_apps"
     },
     {
       label: "Custom App",
-      icon: "utility:custom_apps",
-    },
+      icon: "utility:custom_apps"
+    }
   ];
 
   sampleCoverableContentCheckbox = [
     {
       label: "Account",
-      icon: "standard:account",
+      icon: "standard:account"
     },
     {
       label: "Lead",
-      icon: "standard:lead",
+      icon: "standard:lead"
     },
     {
       label: "Orders",
-      icon: "standard:orders",
-    },
+      icon: "standard:orders"
+    }
   ];
 
   sampleVertical = [
@@ -67,21 +67,21 @@ export default class Samples extends LightningElement {
       value: "1",
       label: "Item Text",
       description:
-        "Some optional item description to help the user better understand what this option is about.",
+        "Some optional item description to help the user better understand what this option is about."
     },
     {
       value: "2",
       label: "Item Text",
       description:
-        "Some optional item description to help the user better understand what this option is about.",
+        "Some optional item description to help the user better understand what this option is about."
     },
     {
       value: "3",
       label: "Item Text",
       description:
         "Some optional item description to help the user better understand what this option is about.",
-      disabled: true,
-    },
+      disabled: true
+    }
   ];
 
   sampleVerticalIcons = [
@@ -90,15 +90,15 @@ export default class Samples extends LightningElement {
       label: "Item Text",
       icon: "standard:account",
       description:
-        "Some optional item description to help the user better understand what this option is about.",
+        "Some optional item description to help the user better understand what this option is about."
     },
     {
       value: "2",
       label: "Item Text",
       icon: "utility:dayview",
       description:
-        "Some optional item description to help the user better understand what this option is about.",
-    },
+        "Some optional item description to help the user better understand what this option is about."
+    }
   ];
 
   sampleLink = [
@@ -107,14 +107,14 @@ export default class Samples extends LightningElement {
       icon: "utility:knowledge_base",
       link: "https://www.salesforce.com/solutions/sales-cloud/knowledge-base/",
       description:
-        "Harness your team's collective know-how with our powerful knowledge base",
+        "Harness your team's collective know-how with our powerful knowledge base"
     },
     {
       label: "Link without icon",
       link: "https://www.salesforce.com/solutions/sales-cloud/knowledge-base/",
       description:
-        "Harness your team's collective know-how with our powerful knowledge base",
-    },
+        "Harness your team's collective know-how with our powerful knowledge base"
+    }
   ];
 
   sampleEvents = [
@@ -122,14 +122,14 @@ export default class Samples extends LightningElement {
       value: "1",
       label: "Option 1",
       description:
-        "Some optional item description to help the user better understand what this option is about.",
+        "Some optional item description to help the user better understand what this option is about."
     },
     {
       value: "2",
       label: "Option 2",
       description:
-        "Some optional item description to help the user better understand what this option is about.",
-    },
+        "Some optional item description to help the user better understand what this option is about."
+    }
   ];
 
   selectedValue = "none";
@@ -150,14 +150,14 @@ export default class Samples extends LightningElement {
       this.dispatchEvent(
         new ShowToastEvent({
           message: "Validation passed",
-          variant: "success",
+          variant: "success"
         })
       );
     } else {
       this.dispatchEvent(
         new ShowToastEvent({
           message: validation.errorMessage,
-          variant: "error",
+          variant: "error"
         })
       );
     }
