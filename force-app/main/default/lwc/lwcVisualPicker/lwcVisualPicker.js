@@ -89,7 +89,7 @@ export default class LwcVisualPicker extends LightningElement {
    */
   @api
   get size() {
-    return this.size;
+    return this._size;
   }
   _size = "small";
   set size(value) {
