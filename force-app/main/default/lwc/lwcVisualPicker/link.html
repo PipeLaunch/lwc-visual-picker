@@ -1,10 +1,10 @@
 <template>
-    <div if:true={computeHasOptions} class="slds-form-element__control">
+    <div lwc:if={computeHasOptions} class="slds-form-element__control">
         <template for:each={processedOptions} for:item="option">
-            <a key={option.value} href={option.link} target="_blank"
+            <a key={option.value} href={option.link} target="_blank" rel="noopener noreferrer"
                 class="slds-box slds-box_link slds-box_x-small slds-media slds-var-m-bottom_x-small">
 
-                <template if:true={option._hasVerticalIcons}>
+                <template lwc:if={option._hasVerticalIcons}>
                     <div
                         class="slds-media__figure slds-media__figure_fixed-width slds-align_absolute-center slds-var-m-left_xx-small">
                         <span class="slds-icon_container">
@@ -19,8 +19,7 @@
                     </div>
                 </template>
 
-
-                <template if:false={option._hasVerticalIcons}>
+                <template lwc:else>
                     <div class="slds-media__body slds-var-p-around_small">
                         <h2 class="slds-truncate slds-text-heading_small" title={option.label}>
                             {option.label}
@@ -28,7 +27,6 @@
                         <p class="slds-var-m-top_small">{option.description}</p>
                     </div>
                 </template>
-
             </a>
         </template>
     </div>

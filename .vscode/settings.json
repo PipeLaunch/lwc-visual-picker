@@ -1,6 +1,4 @@
 {
-    "cSpell.words": [
-        "coverable"
-    ],
-    "editor.formatOnSave": true
+  "cSpell.words": ["checkvalidity", "coverable", "valuechanged"],
+  "editor.formatOnSave": true
 }

@@ -1,8 +1,9 @@
 /**
- * @description       :
+ * @description       : Sample component to display the multiple possibilities of the LWC
+ * Visual Picker component
  * @author            : samuel@pipelaunch.com
- * @group             :
- * @last modified on  : 2023-02-12
+ * @group             : Generic Components
+ * @last modified on  : 2024-08-12
  * @last modified by  : samuel@pipelaunch.com
  * Modifications Log
  * Ver   Date         Author                  Modification
@@ -10,7 +11,6 @@
  **/
 import { LightningElement } from "lwc";
 
-// import LightningAlert from "lightning/alert"; // disabled to support local dev
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 export default class Samples extends LightningElement {

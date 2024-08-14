@@ -1,9 +1,13 @@
 // @ts-check
 
+import generateGuid from "./generateGuid";
+
+export { generateGuid };
+
 /**
  * @description Normalize Boolean
  * @param {*} value value
- * @returns {Boolean} value in boolean
+ * @returns {boolean} value in boolean
  */
 export function normalizeBoolean(value) {
   if (
@@ -16,7 +20,7 @@ export function normalizeBoolean(value) {
 
 /**
  * @description Validate string
- * @param {String} value
+ * @param {string} value
  * @returns
  */
 export function validateString(value = "") {
@@ -27,8 +31,8 @@ export function validateString(value = "") {
 
 /**
  * @description validates size
- * @param {String} input
- * @returns {String}
+ * @param {string} input
+ * @returns {string}
  */
 export function validateSize(input) {
   const VALID_TYPES = ["small", "medium", "large"];
@@ -40,8 +44,8 @@ export function validateSize(input) {
 
 /**
  * @description validates type
- * @param {String} input
- * @returns {String}
+ * @param {string} input
+ * @returns {string}
  */
 export function validateType(input) {
   const VALID_TYPES = ["coverable", "non-coverable", "link", "vertical"];
@@ -53,10 +57,10 @@ export function validateType(input) {
 
 /**
  * @description process options
- * @param {Object[]} input
- * @param {String} type
- * @param {Boolean} globalDisabled
- * @returns {Object[]}
+ * @param {object[]} input
+ * @param {string} type
+ * @param {boolean} globalDisabled
+ * @returns {object[]}
  */
 export function processOptions(
   input,
@@ -85,9 +89,9 @@ export function processOptions(
 
 /**
  * @description get the preselected value (only the first selected find)
- * @param {Object[]} input
- * @param {Boolean} multiSelection
- * @returns {String|String[]|null}
+ * @param {object[]} input
+ * @param {boolean} multiSelection
+ * @returns {string|string[]|null}
  */
 export function getPreselectedValue(input, multiSelection = false) {
   if (!input || !Array.isArray(input)) return null;
@@ -104,40 +108,9 @@ export function getPreselectedValue(input, multiSelection = false) {
 }
 
 /**
- * Copyright (c) 2019, salesforce.com, inc.
- * All rights reserved.
- * SPDX-License-Identifier: MIT
- * For full license text, see the LICENSE file in the repo root or https://opensource.org/licenses/MIT
- *
- * @returns {String} guid
- */
-export function generateGuid() {
-  function s4() {
-    return Math.floor((1 + Math.random()) * 0x10000)
-      .toString(16)
-      .substring(1);
-  }
-
-  return (
-    s4() +
-    s4() +
-    "-" +
-    s4() +
-    "-" +
-    s4() +
-    "-" +
-    s4() +
-    "-" +
-    s4() +
-    s4() +
-    s4()
-  );
-}
-
-/**
  * @description check if all items are disabled
- * @param {Object[]} input
- * @returns {Boolean} true if all items are disabled
+ * @param {object[]} input
+ * @returns {boolean} true if all items are disabled
  */
 function checkIfAllItemsAreDisabled(input) {
   if (!input || !Array.isArray(input)) return false;
@@ -147,9 +120,9 @@ function checkIfAllItemsAreDisabled(input) {
 
 /**
  * @description only returns fallback if is coverable type
- * @param {Object[]|any} input
- * @param {String} type
- * @returns {String}
+ * @param {object[]|any} input
+ * @param {string} type
+ * @returns {string}
  */
 function computeIcon(input, type = "coverable") {
   if (type === "coverable") {
@@ -170,6 +143,11 @@ function computeCardTitle(input, type = "coverable") {
   return type === "vertical" ? input.description : input.cardTitle;
 }
 
+/**
+ * @description generate card classes depending on the type
+ * @param {string} type - type of the card: coverable, non-coverable, link, vertical
+ * @returns {string} classes for the card
+ */
 function generateCardClasses(type = "coverable") {
   const baseClasses = [
     "slds-visual-picker__figure",

@@ -2,7 +2,7 @@
  * @description       : LWC Visual Picker Component
  * @group             : Generic Components
  * @author            : samuel@pipelaunch.com
- * @last modified on  : 2023-02-12
+ * @last modified on  : 2024-08-14
  * @last modified by  : samuel@pipelaunch.com
  * @version           : 1.1
  * @changelog         : 21-07-2022 - Change the getting variables
@@ -181,6 +181,14 @@ export default class LwcVisualPicker extends LightningElement {
   }
 
   /**
+   * @description Get the value of the input
+   * @returns {any} - the value of the input
+   */
+  @api get value() {
+    return this._value;
+  }
+
+  /**
    * @description Validate User Input for Custom Flow Screen Components
    * @returns {Object} -
    */
@@ -200,20 +208,15 @@ export default class LwcVisualPicker extends LightningElement {
    * @description Report validity
    * @returns {boolean} - true if the input is valid
    */
-  @api
-  reportValidity() {
+  @api reportValidity() {
     const validationResults = this.validate();
 
     return validationResults?.isValid ?? false;
   }
 
-  @api get value() {
-    return this._value;
-  }
-
   /**
    * @description when user clicks on the input
-   * @param {Object} evt
+   * @param {MouseEvent} evt
    */
   handleClickInput(evt) {
     const value = evt.target.value || null;
@@ -253,7 +256,10 @@ export default class LwcVisualPicker extends LightningElement {
    * @description process options after all properties are set
    */
   _processOptions() {
-    if (!this._options) return;
+    if (!this._options) {
+      return;
+    }
+
     this.processedOptions = utils.processOptions(
       this._options,
       this._type,
@@ -263,8 +269,6 @@ export default class LwcVisualPicker extends LightningElement {
       this.processedOptions,
       this._multipleSelection
     );
-    if (this.debug) {
-      console.log("Processed options", this._options);
-    }
+    if (this.debug) console.log("Processed options", this._options);
   }
 }
